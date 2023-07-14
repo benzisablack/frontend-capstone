@@ -1,10 +1,11 @@
+import BookingForm from "../components/BookingForm";
 import Main from "../components/Main";
 
 const BookingPage = () => {
   return (
     <Main>
       <div className="container-grid">
-        <h1>Booking</h1>
+        <BookingForm></BookingForm>
       </div>
     </Main>
   )
