@@ -11,7 +11,7 @@ const Nav = () => {
     { name: 'Home', path: '/' },
     { name: 'About', path: '/about' },
     { name: 'Menu', path: '/menu' },
-    { name: 'Reservations', path: '/reservation' },
+    { name: 'Reservations', path: '/booking' },
     { name: 'Order Online', path: '/order' },
     { name: 'Login', path: '/login' },
   ]
