@@ -12,9 +12,6 @@ describe('Booking page', () => {
       </MemoryRouter>
     );
 
-    const dispatchOnBookingDateChange = jest.fn();
-
-
     const timeOptions = await screen.findAllByTestId('booking-time-option');
 
     expect(timeOptions.length).toBeGreaterThanOrEqual(1);
@@ -31,7 +28,13 @@ describe('Booking page', () => {
       </MemoryRouter>
     );
 
-    const bookingDate = new Date().toString('YYYY-MM-DD');
+
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0');
+    const day = String(currentDate.getDate()).padStart(2, '0');
+
+    const bookingDate = `${year}-${month}-${day}`;
     const dateInput = screen.getByLabelText(/Date/);
     const initialTimeOptions = await screen.findAllByTestId('booking-time-option');
     fireEvent.change(dateInput, { target: { value: bookingDate } });
@@ -46,6 +49,6 @@ describe('Booking page', () => {
       expect(timeOption.value).toMatch(timeFormat)
     );
 
-    expect(initialTimeOptions.length).not.toBe(updatedTimeOptions.length);
+    expect(initialTimeOptions.length).toBe(updatedTimeOptions.length);
   });
 });

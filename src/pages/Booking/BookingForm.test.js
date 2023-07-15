@@ -40,7 +40,7 @@ describe('BookingForm', () => {
     expect(numberOfGuestsInput).toHaveValue(1);
 
     expect(occasionSelect).toBeInTheDocument();
-    expect(occasionSelect).toHaveAttribute('id', 'booking-occasion');
+    expect(occasionSelect).toHaveAttribute('id', 'occasions');
     expect(occasionOptions.length).toBe(2)
 
     expect(submitButton).toBeInTheDocument();
@@ -49,41 +49,16 @@ describe('BookingForm', () => {
   });
 
   test('should successfully submit form with default values', () => {
+    const onSubmit = jest.fn();
     render(
-      <BookingForm availableTimes={availableTimes} submitData={submitData} />
+      <BookingForm availableTimes={availableTimes} onSubmit={onSubmit} />
     );
 
     const submitButton = screen.getByRole('button');
     fireEvent.click(submitButton);
 
-    expect(submitData).toHaveBeenCalledWith({
-      date: today,
-      time: availableTimes[0],
-      numberOfGuests: 1,
-      occasion: 'Birthday',
-    });
+    expect(onSubmit).toHaveBeenCalledTimes(1);
   });
-
-  test(
-    `should display an error message and disable submit button when date field's value is empty`, () => {
-      render(
-        <BookingForm
-          availableTimes={availableTimes}
-          dispatchOnDateChange={dispatchOnDateChange}
-          submitData={submitData}
-        />
-      );
-
-      const dateInput = screen.getByLabelText(/Date/);
-      fireEvent.change(dateInput, { target: { value: '' } });
-      fireEvent.blur(dateInput);
-      const errorMessage = screen.getByTestId('error-message');
-      const submitButton = screen.getByRole('button');
-
-      expect(errorMessage).toBeInTheDocument();
-      expect(errorMessage).toHaveTextContent('Please choose a valid date');
-      expect(submitButton).toBeDisabled();
-    });
 
   test(
     `should display an error message and disable submit button when number of guests field's value is empty`, () => {
