@@ -1,10 +1,11 @@
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useState } from 'react';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { navLinks } from '../../utils/navLinks';
 import logo from '../../assets/Logo.svg';
-import hamburgerMenuIcon from '../../assets/hamburger_menu.svg';
-import '../../styles/header.css'
+import '../../styles/header.css';
+import { navLinks } from '../../utils/navLinks';
 
 const Header = () => {
   const currentLocation = useLocation();
@@ -20,11 +21,13 @@ const Header = () => {
           type="button"
           onClick={() => setIsNavExpanded(!isNavExpanded)}
         >
-          <img src={hamburgerMenuIcon} alt="Navigation menu icon" />
+          {isNavExpanded ?
+            <FontAwesomeIcon icon={faXmark} size="2x" /> :
+            <FontAwesomeIcon icon={faBars} size="2x" />}
         </button>
         <ul className={isNavExpanded ? 'nav-bar-links expanded' : 'nav-bar-links'}>
-          {navLinks.map((navLink, index) =>
-            <li key={index}>
+          {navLinks.map((navLink) =>
+            <li key={navLink.path}>
               <Link
                 className={currentLocation.pathname === navLink.path ? 'currentLocation' : ''}
                 to={navLink.path}

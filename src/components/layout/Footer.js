@@ -61,8 +61,8 @@ const Footer = () => {
         <nav className="site-footer-nav">
           <h4>Sitemap</h4>
           <ul>
-            {navLinks.map((navLink, index) =>
-              <li key={index}>
+            {navLinks.map((navLink) =>
+              <li key={navLink.path}>
                 <Link to={navLink.path}>
                   {navLink.name}
                 </Link>
@@ -72,17 +72,17 @@ const Footer = () => {
         </nav>
         <div className="site-footer-contact">
           <h4>Contact us</h4>
-          {contacts.map((contact, index) =>
-            <p key={index}>
+          {contacts.map((contact) =>
+            <p key={contact.info}>
               <FontAwesomeIcon icon={contact.icon} /> {contact.info}
             </p>
           )}
         </div>
         <div className="site-footer-social">
           <h4>Connect with us</h4>
-          {socials.map((social, index) =>
+          {socials.map((social) =>
             <a
-              key={index}
+              key={social.name}
               href={`https://${social.name}.com`}
               target="_blank"
               rel="noreferrer"

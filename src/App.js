@@ -3,7 +3,7 @@ import Layout from './components/layout/Layout';
 import Bookings from './pages/Booking/Booking';
 import ConfirmedBooking from './pages/Booking/ConfirmedBooking';
 import HomePage from './pages/Home';
-import UnderConstruction from './pages/UnderContruction';
+import UnderConstruction from './pages/UnderConstruction';
 
 const App = () => {
   return (

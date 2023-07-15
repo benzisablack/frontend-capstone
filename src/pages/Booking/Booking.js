@@ -22,11 +22,14 @@ const Bookings = () => {
 
   const onSubmit = (formData) => {
     const response = submitAPI(formData);
-    if (response) navigate('/booking-confirmation');
+    if (response) {
+      navigate('/booking-confirmation')
+    };
   };
 
   return (
     <div className="container">
+      <h2>Table reservation</h2>
       <BookingForm
         availableTimes={availableTimes}
         dispatchOnDateChange={dispatchOnDateChange}

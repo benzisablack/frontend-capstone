@@ -11,6 +11,7 @@ const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, onSubmit }) 
 
   const invalidDateErrorMessage = 'Please choose a valid date';
   const invalidTimeErrorMessage = 'Please choose a valid time';
+  const invalidOccasionErrorMessage = 'Please choose a valid occasion';
   const invalidNumberOfGuestsErrorMessage =
     'Please enter a number between 1 and 10';
 
@@ -48,7 +49,7 @@ const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, onSubmit }) 
     <form onSubmit={handleFormSubmit}>
       <FormField
         label="Date"
-        htmlFor="booking-date"
+        htmlFor="bookingDate"
         hasError={!isDateValid()}
         errorMessage={invalidDateErrorMessage}
       >
@@ -58,29 +59,30 @@ const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, onSubmit }) 
           name="bookingDate"
           min={today}
           value={bookingForm.bookingDate}
+          required={true}
           onChange={handleOnChange} />
       </FormField>
       <FormField
         label="Time"
-        htmlFor="booking-time"
+        htmlFor="bookingTime"
         hasError={!isTimeValid()}
         errorMessage={invalidTimeErrorMessage}
       >
         <select
-          id="booking-time"
-          name="booking-time"
+          id="bookingTime"
+          name="bookingTime"
           value={bookingForm.bookingTime}
           required={true}
           onChange={handleOnChange}
         >
           {availableTimes.map(times =>
-            <option key={times}>{times}</option>
+            <option key={times} data-testid='booking-time-option'>{times}</option>
           )}
         </select>
       </FormField>
       <FormField
         label="Number of guests"
-        htmlFor="booking-number-guests"
+        htmlFor="numberOfGuests"
         hasError={!isNumberOfGuestsValid()}
         errorMessage={invalidNumberOfGuestsErrorMessage}
       >
@@ -98,7 +100,7 @@ const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, onSubmit }) 
         label="Occasion"
         htmlFor="occasions"
         hasError={false}
-        errorMessage=""
+        errorMessage={invalidOccasionErrorMessage}
       >
         <select
           id="occasions"
@@ -108,7 +110,7 @@ const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, onSubmit }) 
           onChange={handleOnChange}
         >
           {occasions.map(occasion =>
-            <option key={occasion}>{occasion}</option>
+            <option key={occasion} data-testid='booking-occasion-option'>{occasion}</option>
           )}
         </select>
       </FormField>
