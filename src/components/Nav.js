@@ -1,36 +1,37 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
-import logo from '../assets/Logo.svg'
-import hamburgerMenuIcon from '../assets/hamburger_menu.svg'
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/Logo.svg';
+import hamburgerMenuIcon from '../assets/hamburger_menu.svg';
+import { navLinks } from '../utils/navLinks';
+import '../styles/nav.css'
 
 const Nav = () => {
-
+  const currentLocation = useLocation();
   const [isNavExpanded, setIsNavExpanded] = useState(false)
 
-  const pageList = [
-    { name: 'Home', path: '/' },
-    { name: 'About', path: '/about' },
-    { name: 'Menu', path: '/menu' },
-    { name: 'Reservations', path: '/booking' },
-    { name: 'Order Online', path: '/order' },
-    { name: 'Login', path: '/login' },
-  ]
   return (
-    <nav className='container-grid nav-bar'>
-      <img src={logo} alt='Logo' />
+    <nav className="container grid nav-bar">
+      <Link className="nav-bar-logo" to="/">
+        <img src={logo} alt="Little Lemon logo" />
+      </Link>
       <button
+        className="nav-bar-hamburger"
         type="button"
         onClick={() => setIsNavExpanded(!isNavExpanded)}
       >
         <img src={hamburgerMenuIcon} alt="Navigation menu icon" />
       </button>
-      <ul>
-        {
-          pageList.map((page) => (
-            <li key={page.name}>
-              <Link to={page.path}>{page.name}</Link>
-            </li>
-          ))
+      <ul className={isNavExpanded ? 'nav-bar-links expanded' : 'nav-bar-links'}>
+        {navLinks.map((navLink, index) =>
+          <li key={index}>
+            <Link
+              className={currentLocation.pathname === navLink.anchor ? 'currentLocation' : ''}
+              to={navLink.anchor}
+            >
+              {navLink.name}
+            </Link>
+          </li>
+        )
         }
       </ul>
     </nav>
