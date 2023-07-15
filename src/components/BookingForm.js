@@ -1,43 +1,58 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const BookingForm = () => {
+const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, submitForm }) => {
 
-  const [bookingDetail, setBookingDetail] = useState({
+  const navigate = useNavigate();
+  const [bookingForm, setBookingForm] = useState({
     bookingDate: '',
     bookingTime: '',
-    numberOfGuest: 0,
-    occasion: ''
+    numberOfGuest: 1,
+    occasion: 'Birthday'
   })
+
   const handleOnChange = (e) => {
-    const data = { ...bookingDetail };
-    data[e.target.name] = data[e.target.value]
-    setBookingDetail(data)
+    const { name, value } = e.target
+    const data = { ...bookingForm };
+    data[name] = value
+
+    if (name === 'bookingDate') {
+      dispatchOnBookingDateChange(value)
+    }
+    setBookingForm(data)
   }
 
-  const handleFormSubmit = () => {
-    console.log('data', bookingDetail)
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (submitForm(bookingForm)) {
+      navigate('/booking-confirmation')
+    }
   }
   return (
     <form onSubmit={handleFormSubmit}>
       <label htmlFor="res-date">Choose date</label>
-      <input type="date" id="res-date" name="bookingDate" value={bookingDetail.bookingDate} onChange={handleOnChange} />
+      <input
+        type="date"
+        id="res-date"
+        name="bookingDate"
+        value={bookingForm.bookingDate}
+        onChange={handleOnChange} />
       <label htmlFor="res-time">Choose time</label>
-      <select id="res-time" name="bookingTime">
-        <option>17:00</option>
-        <option>18:00</option>
-        <option>19:00</option>
-        <option>20:00</option>
-        <option>21:00</option>
-        <option>22:00</option>
+      <select id="res-time" name="bookingTime" onChange={handleOnChange}>
+        {availableTimes.map((times) =>
+          <option key={times}>{times}</option>
+        )}
       </select>
       <label htmlFor="guests">Number of guests</label>
-      <input type="number" placeholder="1" min="1" max="10" id="guests" name="numberOfGuest" />
+      <input type="number" placeholder="1" min="1" max="10" id="guests" name="numberOfGuest" onChange={handleOnChange} />
       <label htmlFor="occasion">Occasion</label>
-      <select id="occasion" name="occasion">
+      <select id="occasion" name="occasion" onChange={handleOnChange}>
         <option>Birthday</option>
         <option>Anniversary</option>
       </select>
-      <input type="submit" value="Make Your reservation" />
+      <button type="submit">
+        Make Your reservation
+      </button>
     </form>
   );
 };
