@@ -25,8 +25,8 @@ const Nav = () => {
         {navLinks.map((navLink, index) =>
           <li key={index}>
             <Link
-              className={currentLocation.pathname === navLink.anchor ? 'currentLocation' : ''}
-              to={navLink.anchor}
+              className={currentLocation.pathname === navLink.path ? 'currentLocation' : ''}
+              to={navLink.path}
             >
               {navLink.name}
             </Link>
