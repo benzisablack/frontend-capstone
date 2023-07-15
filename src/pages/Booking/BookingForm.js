@@ -1,5 +1,5 @@
 import { useState } from "react";
-import FormField from "./FormField";
+import FormField from "../../components/FormField";
 
 const BookingForm = ({ availableTimes, dispatchOnBookingDateChange, onSubmit }) => {
 

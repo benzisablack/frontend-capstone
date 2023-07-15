@@ -1,7 +1,7 @@
 import {
   faFacebook,
-  faTwitter,
   faInstagram,
+  faTwitter,
   faYoutube
 } from '@fortawesome/free-brands-svg-icons';
 import {
@@ -11,9 +11,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import '../styles/footer.css'
-import logoWhiteImage from '../assets/logo-white.png';
-import { navLinks } from '../utils/navLinks';
+import logoWhiteImage from '../../assets/logo-white.png';
+import '../../styles/footer.css';
+import { navLinks } from '../../utils/navLinks';
 
 const contacts = [
   {
@@ -63,7 +63,7 @@ const Footer = () => {
           <ul>
             {navLinks.map((navLink, index) =>
               <li key={index}>
-                <Link to={navLink.anchor}>
+                <Link to={navLink.path}>
                   {navLink.name}
                 </Link>
               </li>

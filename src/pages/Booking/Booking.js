@@ -1,8 +1,8 @@
 import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
-import BookingForm from '../components/BookingForm';
-import { fetchAPI, submitAPI } from '../utils/api';
-import '../styles/bookings.css'
+import BookingForm from './BookingForm';
+import { fetchAPI, submitAPI } from '../../utils/api';
+import '../../styles/bookings.css'
 
 const updateTimes = (availableTimes, date) => {
   const response = fetchAPI(new Date(date));
