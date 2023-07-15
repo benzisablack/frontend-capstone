@@ -2,9 +2,10 @@ import { useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BookingForm from '../components/BookingForm';
 import { fetchAPI, submitAPI } from '../utils/api';
+import '../styles/bookings.css'
 
-const updateTimes = (availableTimes, bookingDate) => {
-  const response = fetchAPI(new Date(bookingDate));
+const updateTimes = (availableTimes, date) => {
+  const response = fetchAPI(new Date(date));
   return (response.length !== 0) ? response : availableTimes;
 };
 
@@ -16,10 +17,10 @@ const Bookings = () => {
 
   const [
     availableTimes,
-    dispatchOnBookingDateChange
+    dispatchOnDateChange
   ] = useReducer(updateTimes, [], initializeTimes);
 
-  const submitForm = (formData) => {
+  const onSubmit = (formData) => {
     const response = submitAPI(formData);
     if (response) navigate('/booking-confirmation');
   };
@@ -28,8 +29,8 @@ const Bookings = () => {
     <div className="container">
       <BookingForm
         availableTimes={availableTimes}
-        dispatchOnBookingDateChange={dispatchOnBookingDateChange}
-        submitForm={submitForm}
+        dispatchOnDateChange={dispatchOnDateChange}
+        onSubmit={onSubmit}
       />
     </div>
   );
